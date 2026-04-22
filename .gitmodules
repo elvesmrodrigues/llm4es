@@ -1,0 +1,6 @@
+[submodule "source/llm-foundry"]
+	path = source/llm-foundry
+	url = git@github.com:mosaicml/llm-foundry.git
+[submodule "source/ptls-experiments"]
+	path = source/ptls-experiments
+	url = https://github.com/pytorch-lifestream/ptls-experiments
