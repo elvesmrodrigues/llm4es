@@ -72,6 +72,7 @@ def get_vllm_model(
         trust_remote_code=True,
         tensor_parallel_size=1,
         gpu_memory_utilization=0.95,
+        max_model_len=8192
     )
     return model
 
