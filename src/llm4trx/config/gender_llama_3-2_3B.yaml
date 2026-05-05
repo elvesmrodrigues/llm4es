@@ -1,8 +1,13 @@
 project: "gigachat"
 seed: 42
 variables:
+    work_dir: /workspace/llm4es
     global_seed: ${seed}
     dataset_name: gender
+    tokenizer_name: "meta-llama/Llama-3.1-8B-Instruct"
+    model_convertation:
+        hf_output_path: "meta-llama/Llama-3.1-8B-Instruct"
+        output_precision: bf16
 device: "cuda"
 exp_name: "Llama-3.2-1B-sft"
 log_dir: "./checkpoints-logs/${exp_name}"

@@ -94,7 +94,7 @@ def get_train_dataset(
     preprocessor = get_feature_preprocessor(config)
     if config.dataset.marked_dataset:
         print("marked!")
-        vllm_text_dataset = pd.read_csv("assets/" + config.dataset.name + "/transactions_text_marked_150.csv").rename({"0": "out"}, axis=1)
+        vllm_text_dataset = pd.read_csv("assets/" + config.dataset.name + "/marking_dataset.csv").rename({"0": "out"}, axis=1)
         hf_dataset = Dataset.from_pandas(pd.DataFrame({"prompt": vllm_text_dataset["out"]}))
     else:
         transactions = transactions.progress_apply(

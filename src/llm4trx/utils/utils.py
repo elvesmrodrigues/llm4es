@@ -49,8 +49,8 @@ def get_model(
     config,
     train=True
 ):
-    attn_implementation = "flash_attention_2" if config.model.use_flash_attention_2 else None
-    torch_dtype = torch.bfloat16 if config.precision == "amp_bf16" else torch.float16
+    attn_implementation = None #"flash_attention_2" if config.model.use_flash_attention_2 else None
+    torch_dtype = torch.bfloat16# if config.precision == "amp_bf16" else torch.float16
 
     model = AutoModelForCausalLM.from_pretrained(
         config.variables.model_convertation.hf_output_path,
@@ -170,8 +170,8 @@ def get_feature_preprocessor(
                     
         
         preprocessor = FeaturePreprocessor(
-            "/home/jovyan/zoloev-city/gigachat/source/script/assets/gender/mcc_dict.npy",
-            "/home/jovyan/zoloev-city/gigachat/source/script/assets/gender/tr_type_dict.npy",
+            "./src/ptls-experiments/scenario_gender/data/mcc_dict.npy",
+            "./src/ptls-experiments/scenario_gender/data/type_dict.npy",
         )
     elif config.variables.dataset_name == "age_pred" or config.variables.dataset_name == "mixed":
         class FeaturePreprocessor:

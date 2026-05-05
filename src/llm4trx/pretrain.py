@@ -28,7 +28,7 @@ warnings.filterwarnings("ignore")
 def train(
     config,
 ):
-    tokenizer = get_tokenizer(config, train=True)
+    tokenizer = get_tokenizer(config)#, train=True)
     model = get_model(config, train=True)
     model.train()
 
