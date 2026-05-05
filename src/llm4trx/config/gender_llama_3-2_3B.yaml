@@ -20,7 +20,7 @@ model:
     use_flash_attn: true
     use_bfloat16: true
     equal_pad_eos_id: true
-    max_length: 8192
+    max_length: 512
 
 dataset:
     name: "gender"
