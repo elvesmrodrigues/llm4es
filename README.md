@@ -8,12 +8,12 @@
 Follow the steps:
 
 ```
-pip install cmake packaging wheel
+pip install cmake packaging wheel vllm==0.6.0 hydra-core peft
 pip install  torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 pip install flash-attn --no-build-isolation
+cd src/llm-foundry/
 pip install -e ".[gpu]"
-pip install vllm==0.6.0
-pip install hydra-core
+cd ../../
 ```
 
 ## About
