@@ -3,14 +3,14 @@ import pandas as pd
 import numpy as np
 import torch
 
-from src.llm4trx.utils.utils import DataCollatorWithUserIds, get_feature_preprocessor
+# from src.llm4trx.utils.utils import DataCollatorWithUserIds, get_feature_preprocessor
+from utils.utils import DataCollatorWithUserIds, get_feature_preprocessor
 from tqdm import tqdm
 from datasets import Dataset
 from tqdm import tqdm
 from torch.utils.data import DataLoader
 
 tqdm.pandas(leave=True)
-
 
 def trx_to_text_converter(
     config,
@@ -20,9 +20,11 @@ def trx_to_text_converter(
     chat=False,
     inference=False,
 ):
+    global max_len
     header = config.dataset.header_separator.join(config.dataset.header_features)
 
-    transactions = [header] + [
+    
+    user_transactions = [
         config.dataset.feature_separator.join(
             preprocessor.preprocess(
                 config, 
@@ -31,8 +33,11 @@ def trx_to_text_converter(
             ) for feature in list(config.dataset.features)
         ) for timestamp in range(len(transaction[config.dataset.features[0]]))
     ]
-    text = config.dataset.trx_separator.join(transactions)
 
+    user_transactions = user_transactions[-100:]
+
+    transactions = [header] + user_transactions
+    text = config.dataset.trx_separator.join(transactions)
 
     if chat:
         messages = [
@@ -94,7 +99,7 @@ def get_train_dataset(
     preprocessor = get_feature_preprocessor(config)
     if config.dataset.marked_dataset:
         print("marked!")
-        vllm_text_dataset = pd.read_csv("assets/" + config.dataset.name + "/transactions_text_marked_150.csv").rename({"0": "out"}, axis=1)
+        vllm_text_dataset = pd.read_csv("../../assets/" + config.dataset.name + "/test-gender_augmentation.csv").rename({"0": "out"}, axis=1)
         hf_dataset = Dataset.from_pandas(pd.DataFrame({"prompt": vllm_text_dataset["out"]}))
     else:
         transactions = transactions.progress_apply(
