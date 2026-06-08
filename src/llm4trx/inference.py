@@ -40,6 +40,7 @@ def inference(
 
     user_ids = []
     embeddings = []
+    
     for batch in tqdm(inference_loader):
         user_ids.extend(batch.pop("user_ids"))
         embeddings.extend(get_embedding(config, batch, model))

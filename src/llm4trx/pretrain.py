@@ -7,8 +7,15 @@ import torch
 import wandb
 
 from omegaconf import OmegaConf
-from src.llm4trx.dataset.dataset import get_train_dataset
-from src.llm4trx.utils.utils import (
+# from src.llm4trx.dataset.dataset import get_train_dataset
+# from src.llm4trx.utils.utils import (
+#     get_model,
+#     get_tokenizer,
+#     get_data_collator,
+#     set_global_seed
+# )
+from dataset.dataset import get_train_dataset
+from utils.utils import (
     get_model,
     get_tokenizer,
     get_data_collator,
@@ -28,7 +35,7 @@ warnings.filterwarnings("ignore")
 def train(
     config,
 ):
-    tokenizer = get_tokenizer(config, train=True)
+    tokenizer = get_tokenizer(config)#, train=True)
     model = get_model(config, train=True)
     model.train()
 

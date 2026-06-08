@@ -3,8 +3,8 @@ import pandas as pd
 import numpy as np
 import torch
 
-# from src.llm4trx.utils.utils import DataCollatorWithUserIds, get_feature_preprocessor
-from utils.utils import DataCollatorWithUserIds, get_feature_preprocessor
+from src.llm4trx.utils.utils import DataCollatorWithUserIds, get_feature_preprocessor
+# from utils.utils import DataCollatorWithUserIds, get_feature_preprocessor
 from tqdm import tqdm
 from datasets import Dataset
 from tqdm import tqdm

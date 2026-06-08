@@ -107,6 +107,7 @@ cd LLM4Trx-research
 cd source
 
 # prep ptls-experiments
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 cd ptls-experiments
 python3 -m venv ptls-venv
 source ptls-venv/bin/activate

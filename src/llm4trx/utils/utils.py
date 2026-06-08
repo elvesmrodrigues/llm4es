@@ -49,11 +49,12 @@ def get_model(
     config,
     train=True
 ):
-    attn_implementation = "flash_attention_2" if config.model.use_flash_attention_2 else None
-    torch_dtype = torch.bfloat16 if config.precision == "amp_bf16" else torch.float16
+    attn_implementation = None #"flash_attention_2" if config.model.use_flash_attention_2 else None
+    torch_dtype = torch.bfloat16 #if config.precision == "amp_bf16" else torch.float16
 
     model = AutoModelForCausalLM.from_pretrained(
-        config.variables.model_convertation.hf_output_path,
+        # config.variables.model_convertation.hf_output_path,
+        "meta-llama/Llama-3.1-8B-Instruct",
         attn_implementation=attn_implementation,
         torch_dtype=torch_dtype
     )
@@ -71,8 +72,8 @@ def get_vllm_model(
         dtype=torch_dtype,
         trust_remote_code=True,
         tensor_parallel_size=1,
-        gpu_memory_utilization=0.95,
-        max_model_len=8192
+        gpu_memory_utilization=0.7,
+        # max_model_len=32768
     )
     return model
 
@@ -153,14 +154,16 @@ def get_feature_preprocessor(
         class FeaturePreprocessor:
             def __init__(self, mcc_path, tr_type_path):
                 self.mcc_dict = np.load(mcc_path, allow_pickle=True).item()
-
                 self.tr_type_dict = np.load(tr_type_path, allow_pickle=True).item()
 
             def preprocess(self, config, value, feature):
                 if feature == "mcc_code":
-                    return str(self.mcc_dict[value])
+                    return str(self.mcc_dict[str(value)])
                 elif feature == "tr_type":
-                    return str(self.tr_type_dict[value])
+                    key = str(value)
+                    # if key not in self.tr_type_dict:
+                        # print(f"Warning: tr_type value '{key}' not found in tr_type_dict. Returning 'Unknown'.")
+                    return str(self.tr_type_dict[key]) if key in self.tr_type_dict else "Unknown Transaction Type"
                 elif feature == "event_time":
                     return str(np.int32(value))
                 elif feature == "amount":
@@ -170,8 +173,8 @@ def get_feature_preprocessor(
                     
         
         preprocessor = FeaturePreprocessor(
-            "/home/jovyan/zoloev-city/gigachat/source/script/assets/gender/mcc_dict.npy",
-            "/home/jovyan/zoloev-city/gigachat/source/script/assets/gender/tr_type_dict.npy",
+            "./src/ptls-experiments/scenario_gender/data/mcc_dict.npy",
+            "./src/ptls-experiments/scenario_gender/data/type_dict.npy",
         )
     elif config.variables.dataset_name == "age_pred" or config.variables.dataset_name == "mixed":
         class FeaturePreprocessor:
