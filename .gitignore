@@ -7,3 +7,5 @@ outputs/
 wandb/
 assets/gender/
 *.pyc
+assets/gender/*.csv
+assets/gender/**/*.parquet
