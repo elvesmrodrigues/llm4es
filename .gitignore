@@ -1,5 +1,7 @@
 src/ptls-experiments/ptls-venv/
+src/ptls-experiments/venv/
 src/llm-foundry/llmfoundry-venv/
+src/llm-foundry/venv/
 /venv/
 outputs/
 wandb/
