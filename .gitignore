@@ -1,2 +1,7 @@
-*venv/
+src/ptls-experiments/ptls-venv/
+src/llm-foundry/llmfoundry-venv/
+/venv/
 outputs/
+wandb/
+assets/gender/
+*.pyc

@@ -3,6 +3,19 @@
   <img src="assets/llm.png" alt="llm4es" width="500"/>
 </p>
 
+## How to install
+
+Follow the steps:
+
+```
+pip install cmake packaging wheel vllm==0.6.0 hydra-core peft
+pip install  torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+pip install flash-attn --no-build-isolation
+cd src/llm-foundry/
+pip install -e ".[gpu]"
+cd ../../
+```
+
 ## About
 This repository is dedicated to experiments with LLMs on transactional datasets: [Rosbank](https://github.com/pytorch-lifestream/ptls-experiments/tree/main/scenario_rosbank), [Age](https://github.com/pytorch-lifestream/ptls-experiments/tree/main/scenario_age_pred), [Gender](https://github.com/pytorch-lifestream/ptls-experiments/tree/main/scenario_gender) for paper [LLM4ES: Learning User Embeddings from Event Sequences via
 Large Language Models](https://arxiv.org/pdf/2508.05688v1)
